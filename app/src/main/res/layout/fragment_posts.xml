@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.merttoptas.retrofittutorial.ui.posts.PostsViewModel" />
+    </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,6 +17,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPostsList"
             android:layout_width="match_parent"
+            app:postList="@{viewModel.postLiveData}"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_post_layout" />
