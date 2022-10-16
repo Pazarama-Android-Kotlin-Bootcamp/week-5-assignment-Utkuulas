@@ -11,6 +11,7 @@ class ApiClient {
     companion object {
         private lateinit var apiService: ApiService
 
+        @JvmName("getApiService1")
         fun getApiService(): ApiService {
             if (!::apiService.isInitialized) {
                 val retrofit = Retrofit.Builder()

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.merttoptas.retrofittutorial.ui.posts.PostsViewModel" />
+            type="com.merttoptas.retrofittutorial.ui.posts.viewmodel.PostsViewModel" />
     </data>
 
     <FrameLayout
@@ -17,7 +17,6 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPostsList"
             android:layout_width="match_parent"
-            app:postList="@{viewModel.postLiveData}"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_post_layout" />
