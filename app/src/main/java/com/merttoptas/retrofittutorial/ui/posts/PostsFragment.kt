@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.merttoptas.retrofittutorial.data.api.ApiClient
+import com.merttoptas.retrofittutorial.data.local.database.PostsDatabase
+import com.merttoptas.retrofittutorial.data.remote.api.ApiClient
 import com.merttoptas.retrofittutorial.data.model.DataState
-import com.merttoptas.retrofittutorial.data.model.Post
 import com.merttoptas.retrofittutorial.data.repository.PostRepositoryImpl
 import com.merttoptas.retrofittutorial.databinding.FragmentPostsBinding
 import com.merttoptas.retrofittutorial.ui.loadingprogress.LoadingProgressBar
 import com.merttoptas.retrofittutorial.ui.posts.adapter.PostsAdapter
+import com.merttoptas.retrofittutorial.ui.posts.viewmodel.PostViewEvent
 import com.merttoptas.retrofittutorial.ui.posts.viewmodel.PostViewModelFactory
 import com.merttoptas.retrofittutorial.ui.posts.viewmodel.PostsViewModel
 
@@ -24,7 +23,12 @@ class PostsFragment : Fragment() {
     lateinit var loadingProgressBar: LoadingProgressBar
     private lateinit var binding: FragmentPostsBinding
     private val viewModel by viewModels<PostsViewModel>() {
-        PostViewModelFactory(PostRepositoryImpl(ApiClient.getApiService()))
+        PostViewModelFactory(
+            PostRepositoryImpl(
+                ApiClient.getApiService(),
+                PostsDatabase.getDatabase(requireContext())
+            )
+        )
     }
 
     override fun onCreateView(
@@ -62,6 +66,13 @@ class PostsFragment : Fragment() {
                 is DataState.Loading -> {
                     loadingProgressBar.show()
                 }
+            }
+        }
+
+        viewModel.eventStateLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is PostViewEvent.ShowMessage -> {}
+                is PostViewEvent.NavigateToDetail -> {}
             }
         }
 

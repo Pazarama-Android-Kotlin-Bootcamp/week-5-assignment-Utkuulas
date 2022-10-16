@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="dataHolder"
             type="com.merttoptas.retrofittutorial.data.model.Post" />
@@ -46,10 +47,10 @@
 
                     <TextView
                         android:id="@+id/tvTitleValue"
-                        android:text="@{dataHolder.title}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
+                        android:text="@{dataHolder.title}"
                         android:textStyle="bold"
                         tools:text="Fakir Baykurt" />
                 </LinearLayout>
@@ -73,13 +74,35 @@
                         android:id="@+id/tvBodyTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{dataHolder.body}"
                         android:layout_marginStart="15dp"
+                        android:text="@{dataHolder.body}"
                         android:textStyle="bold"
                         tools:text="Body" />
 
                 </LinearLayout>
             </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:id="@+id/ivPostImage"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:gravity="end"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_favorite_24" />
+                </LinearLayout>
+
+            </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

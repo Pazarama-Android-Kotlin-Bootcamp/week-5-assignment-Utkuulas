@@ -2,14 +2,10 @@ package com.merttoptas.retrofittutorial
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.merttoptas.retrofittutorial.data.api.ApiClient
-import com.merttoptas.retrofittutorial.data.model.Post
-import retrofit2.Call
-import retrofit2.Response
+import com.merttoptas.retrofittutorial.data.local.database.PostsDatabase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -18,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         initNavController()
+        PostsDatabase.getDatabase(this)
     }
 
     private fun initNavController() {

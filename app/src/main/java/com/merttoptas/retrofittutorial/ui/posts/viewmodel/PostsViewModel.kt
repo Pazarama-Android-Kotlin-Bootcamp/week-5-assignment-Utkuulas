@@ -1,5 +1,6 @@
 package com.merttoptas.retrofittutorial.ui.posts.viewmodel
 
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,8 +17,12 @@ import retrofit2.Response
 
 class PostsViewModel(private val postRepository: PostRepository) : ViewModel() {
     private var _postLiveData = MutableLiveData<DataState<List<Post>?>>()
-    val postLiveData : LiveData<DataState<List<Post>?>>
-    get() = _postLiveData
+    val postLiveData: LiveData<DataState<List<Post>?>>
+        get() = _postLiveData
+
+    private val _eventStateLiveData = MutableLiveData<PostViewEvent>()
+    val eventStateLiveData: LiveData<PostViewEvent>
+        get() = _eventStateLiveData
 
     init {
         getPosts()
@@ -30,6 +35,7 @@ class PostsViewModel(private val postRepository: PostRepository) : ViewModel() {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _postLiveData.postValue(DataState.Success(it))
+
                     } ?: kotlin.run {
                         _postLiveData.postValue(DataState.Error("Data Empty"))
                     }
@@ -37,9 +43,16 @@ class PostsViewModel(private val postRepository: PostRepository) : ViewModel() {
                     _postLiveData.postValue(DataState.Error(response.message()))
                 }
             }
+
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
                 _postLiveData.postValue(DataState.Error(t.message.toString()))
+                _eventStateLiveData.postValue(PostViewEvent.ShowMessage(t.message.toString()))
             }
         })
     }
+}
+
+sealed class PostViewEvent {
+    object NavigateToDetail : PostViewEvent()
+    class ShowMessage(val message: String?) : PostViewEvent()
 }

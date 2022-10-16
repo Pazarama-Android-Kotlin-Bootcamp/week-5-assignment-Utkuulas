@@ -1,12 +1,10 @@
-package com.merttoptas.retrofittutorial.data.api
+package com.merttoptas.retrofittutorial.data.remote.api
 
 import com.merttoptas.retrofittutorial.data.model.Post
 import com.merttoptas.retrofittutorial.data.model.Users
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Path
 
 /**

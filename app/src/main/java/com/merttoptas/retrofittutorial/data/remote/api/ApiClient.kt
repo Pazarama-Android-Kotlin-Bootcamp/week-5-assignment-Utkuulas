@@ -1,4 +1,4 @@
-package com.merttoptas.retrofittutorial.data.api
+package com.merttoptas.retrofittutorial.data.remote.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
