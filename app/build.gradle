@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -84,5 +85,13 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
 
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

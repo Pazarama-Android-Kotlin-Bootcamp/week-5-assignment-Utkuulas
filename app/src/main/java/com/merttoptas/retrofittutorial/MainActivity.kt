@@ -6,7 +6,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.merttoptas.retrofittutorial.data.local.database.PostsDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         initNavController()
-        PostsDatabase.getDatabase(this)
     }
 
     private fun initNavController() {

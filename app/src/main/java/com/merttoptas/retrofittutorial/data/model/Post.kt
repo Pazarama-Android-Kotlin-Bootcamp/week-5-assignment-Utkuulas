@@ -16,3 +16,11 @@ data class Post(
     @SerializedName("title")
     val title: String?
 )
+
+data class PostDTO(
+    val body: String?,
+    val userId: Int?,
+    val id: Int?,
+    val title: String?,
+    val isFavorite: Boolean = false
+)

@@ -20,6 +20,4 @@ interface ApiService {
 
     @DELETE("posts/{id}")
     fun deletePost(@Path("{id}") id: String): Call<Post>
-
-
 }
