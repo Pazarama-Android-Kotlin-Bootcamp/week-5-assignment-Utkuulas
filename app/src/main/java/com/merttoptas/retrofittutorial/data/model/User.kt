@@ -3,7 +3,7 @@ package com.merttoptas.retrofittutorial.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Users(
+data class User(
     @SerializedName("address")
     val address: Address?,
     @SerializedName("company")
@@ -20,4 +20,9 @@ data class Users(
     val username: String?,
     @SerializedName("website")
     val website: String?
+)
+
+data class UserDTO(
+    val id: Int?,
+    val username: String?
 )

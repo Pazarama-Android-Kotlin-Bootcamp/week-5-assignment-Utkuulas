@@ -1,7 +1,7 @@
 package com.merttoptas.retrofittutorial.data.remote.api
 
 import com.merttoptas.retrofittutorial.data.model.Post
-import com.merttoptas.retrofittutorial.data.model.Users
+import com.merttoptas.retrofittutorial.data.model.User
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -16,7 +16,7 @@ interface ApiService {
     fun getPosts(): Call<List<Post>>
 
     @GET("users")
-    fun getUsers(): Call<List<Users>>
+    fun getUsers(): Call<List<User>>
 
     @DELETE("posts/{id}")
     fun deletePost(@Path("{id}") id: String): Call<Post>

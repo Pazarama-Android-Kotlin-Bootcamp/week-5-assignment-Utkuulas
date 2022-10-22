@@ -2,6 +2,7 @@ package com.merttoptas.retrofittutorial.data.di
 
 import android.content.Context
 import com.merttoptas.retrofittutorial.data.local.database.PostsDatabase
+import com.merttoptas.retrofittutorial.data.local.database.UsersDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +28,17 @@ object LocalDataModule {
         return PostsDatabase.getDatabase(appContext)
     }
 
+//    @Provides
+//    @Singleton
+//    fun provideUsersDatabase(@ApplicationContext appContext: Context): UsersDatabase {
+//        return UsersDatabase.getUsersDatabase(appContext)
+//    }
+
     @Singleton
     @Provides
     fun providePostDao(db: PostsDatabase) = db.postDao()
+
+    @Singleton
+    @Provides
+    fun provideUserDao(db: UsersDatabase) = db.userDao()
 }

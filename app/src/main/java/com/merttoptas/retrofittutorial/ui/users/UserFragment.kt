@@ -5,15 +5,64 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.merttoptas.retrofittutorial.R
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
+import com.merttoptas.retrofittutorial.data.model.DataState
+import com.merttoptas.retrofittutorial.data.model.UserDTO
+import com.merttoptas.retrofittutorial.databinding.FragmentUserBinding
+import com.merttoptas.retrofittutorial.ui.loadingprogress.LoadingProgressBar
+import com.merttoptas.retrofittutorial.ui.users.adapter.UsersAdapter
+import com.merttoptas.retrofittutorial.ui.users.adapter.onUserClickListener
+import com.merttoptas.retrofittutorial.ui.users.viewmodel.UsersViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class UserFragment : Fragment() {
+@AndroidEntryPoint
+class UserFragment : Fragment(), onUserClickListener {
+    lateinit var loadingProgressBar: LoadingProgressBar
+    private lateinit var binding: FragmentUserBinding
+    private val viewModel by viewModels<UsersViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false)
+        binding = FragmentUserBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        loadingProgressBar = LoadingProgressBar(requireContext())
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.userLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Success -> {
+                    loadingProgressBar.hide()
+                    it.data?.let { safeData ->
+                        binding.rvUsersList.adapter = UsersAdapter(this@UserFragment).apply {
+                            submitList(safeData)
+                        }
+                    } ?: run {
+                        Toast.makeText(requireContext(), "No data", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                is DataState.Error -> {
+                    loadingProgressBar.hide()
+                    Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
+                }
+
+                is DataState.Loading -> {
+                    loadingProgressBar.show()
+                }
+            }
+        }
+
+    }
 }

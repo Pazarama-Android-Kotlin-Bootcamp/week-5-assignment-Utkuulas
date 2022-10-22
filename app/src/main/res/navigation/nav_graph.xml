@@ -15,4 +15,7 @@
         android:name="com.merttoptas.retrofittutorial.ui.posts.PostsFragment"
         android:label="fragment_posts"
         tools:layout="@layout/fragment_posts" />
+    <fragment android:id="@+id/postDetailsFragment"
+              android:name="com.merttoptas.retrofittutorial.ui.postdetails.PostDetailsFragment"
+              android:label="fragment_post_details" tools:layout="@layout/fragment_post_details"/>
 </navigation>

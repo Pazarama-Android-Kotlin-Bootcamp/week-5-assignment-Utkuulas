@@ -27,7 +27,7 @@ abstract class PostsDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context, PostsDatabase::class.java, Constants.TABLE_NAME)
+            Room.databaseBuilder(context, PostsDatabase::class.java, Constants.DATABASE_POSTS_NAME)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build()
